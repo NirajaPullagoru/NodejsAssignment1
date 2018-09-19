@@ -8,7 +8,7 @@ var fs = require('fs')
 //     var phoneNumber = JSON.parse(chunk).phoneNumber;
 //     var emailID = JSON.parse(chunk).emailID;
 // })
-
+console.log("Enter name, phone number and emailID in config.json")
 fs.watch('config.json', (eventType, fileName) => {
     if (fileName) {
         fs.readFile(fileName, 'utf8', function (err, data) {
