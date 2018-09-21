@@ -1,3 +1,5 @@
+//Nodejs assignment-1
+
 const readline = require('readline');
 var quests = ['Enter name: ', 'Enter phone number: ', 'Enter email ID: ']
 var i = 0;
@@ -56,11 +58,40 @@ var validEmail = function (result) {
         i++;
         rl.setPrompt(quests[i])
         rl.prompt();
-        rl.setPrompt(quests[i])
-        rl.prompt();
     } else {
         console.log("Invalid email ID")
         rl.setPrompt('Re-Enter the email ID: ')
         rl.prompt();
     }
 }
+
+// Nodejs Assignment 2
+
+var http = require('http');
+var fs = require('fs')
+var prev, curr
+
+console.log(" The changes on readMe.txt is being monitored. Please make changes! ")
+fs.readFile('readMe.txt', 'utf8', (err, data) => {
+    //console.log('Previous data: ', data)
+    prev = data;
+})
+
+var Diff = require('text-diff');
+var diff = new Diff()
+var textDiff
+fs.watch('readMe.txt', (eventType, fileName) => {
+    if (eventType = 'change') {
+        fs.readFile('readMe.txt', 'utf8', (err, data) => {
+            //console.log('Current data: ', data)
+            curr = data;
+            if (curr.length > prev.length) {
+                textDiff = diff.main(prev, curr)
+                console.log("Newly entered data: ", textDiff[1][1])
+            }
+            // else if(curr.length < prev.length) {
+            //prev = data
+            // }
+        })
+    }
+})
